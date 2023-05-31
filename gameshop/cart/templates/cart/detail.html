@@ -1,0 +1,50 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %}Корзина{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+    <div class="info">
+        <h1>ваша корзина:</h1>
+    </div>
+    {% for item in cart %}
+        {% with st=item.st %}
+            <div class="info">
+                <div class="info-text"  style="min-width: 680px;">
+                    <a href="{{ st.get_absolute_url }}"><h2>{{ st.title }}</h2></a>
+                    <p><a href="{% url 'by_genre' st.genre.pk %}">{{ st.genre.name }}</a></p>
+                    <a href="{% url 'publisher-detail' st.publisher.pk %}">{{ st.publisher.name }}</a>
+                </div>
+                <div class="info-text" >
+                    {% csrf_token %}
+                    </form>
+                    </td>
+                    <td><a href="{% url 'cart:cart_remove' st.id %}">Удалить</a></td>
+                    <td>
+                    {{ item.quantity }}шт
+                    </td>
+                    <td class="num">{{ item.total_price }} Руб</td>
+                    </tr>
+                </div>
+            </div>
+            {% endwith %}
+            {% endfor %}
+    <div class="info">
+        {% if cart|length > 0 %}
+        <tr class="total">
+            <td>Всего: </td>
+            <td colspan="4"></td>
+            <div style="min-width: 680px;"><td >    {{ cart.get_total_price }} Руб</td></div>
+            <td><a href="#" class="button">Оформить заказ</a></td>
+            </tr>
+            </tbody>
+            </table>
+        {% else %}
+        <h1>Ваша корзина пуста</h1>
+        {% endif %}
+    </div>
+{% else %}
+    <div class="info">
+        <h1>Вы не зарегистрированы</h1>
+    </div>
+{% endif %}
+{% endblock %}

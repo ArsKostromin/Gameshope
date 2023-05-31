@@ -1,0 +1,29 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %}ваши игры{% endblock %}
+
+{% block content %}
+{% if user.buyers > 0 %}
+    <div class="info">
+        <h1>ваши игры:</h1>
+    </div>
+    {% for st in st_list %}
+        <div class="info">
+            <div class="info_borrowed" >
+                <div class="mygame_info-text" style="min-width: 680px;">
+                    <a href="{% url 'st-detail' st.pk %}"><h2>{{st}}</h2></a>
+                    <p><a href="{% url 'by_genre' st.genre.pk %}">{{ st.genre.name }}</a></p>
+                    <p>{{ st.price }}</p>
+                </div>
+                <form action="https://www.youtube.com/watch?v=lmmZOx42o94&list=WL&index=99" target="_blank">
+                    <button  style="max-height: 40px; margin-top: 50px;">Играть</button>
+                </form>
+            </div>
+        </div>
+{% endfor %}
+{% else %}
+    <div class="info">
+        <h1>У вас нет игр</h1>
+    </div>
+{% endif %}
+{% endblock %}

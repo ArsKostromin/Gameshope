@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+    background-color: #f1f1f1;
+    color: #0f141e;
+    font-size: 16px;
+    font-weight: normal;
+    font-family: 'Roboto', sans-serif;
+}
+
+.avatar {
+    width: 200px;
+    border-radius: 28px;
+    box-shadow: 4px 4px 14px rgb(0, 0, 1, 25);
+    margin-right: 40px;
+}
+
+.avatar_current {
+    height: 300px;
+    width: 300px;
+    border-radius: 28px;
+    box-shadow: 4px 4px 14px rgb(0, 0, 1, 25);
+    margin-right: 40px; 
+}
+
+.header  {
+    left: 2000px;
+    background-color: white;
+    top: 0px;
+    left: 0px;
+    position: fixed;
+    min-width: 30000px;
+    float:left;
+    min-height: 5px;
+    display: flex;
+}
+
+header h1 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.info {
+    background-color: white;
+    max-width: 800px;
+    margin: auto;
+    border-radius: 28px;
+    padding: 25px;
+    display: flex;
+    margin-top: 50px;
+}
+
+.info_current {
+    background-color: white;
+    max-width: 800px;
+    margin: auto;
+    border-radius: 28px;
+    padding: 25px;
+    display: flex;
+    margin-top: 50px;
+}
+
+.content {
+    margin-left: -330px;
+    margin-top: 100px;
+    display: flex;
+}
+
+info-text {
+    margin-left: 40px;
+}
+
+.button {
+    background-color: #f1f1f1;
+    max-width: 80px;
+    max-height: 35px;
+    border: 2px solid rgb(114, 114, 114);
+    padding: 0px 0px 20px 10px; 
+    border-radius: 5px
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+a:active {
+    color: blue;
+}
+
+.namesite {
+    margin-left: 365px;
+}
+
+nav {
+    position: fixed;
+    left: 365px;
+    font-size: 16pt;
+    margin-bottom: 100px;
+    line-height: 40px;
+    }
+
+nav a {
+    display: block;
+    }
+
+
+.sran {
+    margin-bottom: 100px;
+}
+
+header a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.pagination {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10em
+}
+
+.sran {
+    margin-bottom: 100px;
+}
+
+.login {
+    background-color: white;
+    max-width: 500px;
+    margin: auto;
+    border-radius: 28px;
+    padding: 25px;
+    display: flex;
+    margin-top: 50px;
+}
+
+.notification {
+    background-color: white;
+    max-width: 500px;
+    margin: auto;
+    border-radius: 28px;
+    padding: 25px;
+    margin-top: 50px;
+}
+
+.left {
+    display: flex;
+    margin-left: 600px;
+}
+
+li {
+    list-style-type: none;
+    /* Убираем маркеры */
+  }
+
+.info_borrowed {
+    display: flex;
+}
+
+mygame_info-text {
+    min-width: 4000px;
+}
+
+

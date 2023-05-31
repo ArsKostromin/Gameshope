@@ -1,0 +1,15 @@
+{% extends 'layout/basic.html' %}
+
+{% block content %}
+{% for ss in sss %}
+    <div class="info">
+        <img alt="asds" src="{{ ss.img }}" class="avatar">
+        <div class="info-text">
+            <a href="{{ ss.get_absolute_url }}"><h2>{{ ss.title }}</h2></a>
+            <p><a href="{% url 'by_genre' ss.genre.pk %}">{{ ss.genre.name }}</a></p>
+            <p>{{ ss.price }} Руб</p>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'layout/basic.html' %}
+<title>{% block title %}Авторизация{% endblock %}</title>
+
+{% block content %}
+<div class="notification">
+    <p>Вы вышли!</p>
+    <a href="{% url 'login'%}">Нажмите здесь, чтобы снова войти.</a>
+</div>
+{% endblock %}
