@@ -1,0 +1,23 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %}{{ current_genre.name }}{% endblock %}
+
+{% block content %}
+<div class="info">
+    <h2>Жанр: {{ current_genre.name }}</h2>
+</div>
+{% for ss in sss %}
+    <div class="info">
+        <img alt="asds" src="{{ ss.img }}" class="avatar">
+        <div class="info-text">
+            <a href="{{ ss.get_absolute_url }}"><h2>{{ ss.title }}</h2></a>
+            <p>{{ ss.price }}</p>
+            <form action="{% url 'cart:cart_add' ss.pk %}" method="post">
+                {{ cart_st_form }}
+                {% csrf_token %}
+                <input type="submit" value="В корзину">
+            </form>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

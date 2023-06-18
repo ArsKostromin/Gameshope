@@ -1,0 +1,18 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %}{{ publisher.name }}{% endblock %}
+{% block content %}
+<div class="info">
+    <h1 class="info_text">Издатель: {{ publisher.name }}</h1>
+</div>
+{% for st in publisher.st_set.all %}
+    <div class="info">
+        <img alt="asds" src="{{ st.img }}" class="avatar">
+        <div class="info-text">
+            <a href="{% url 'st-detail' st.pk %}"><h2>{{st}}</h2></a>
+            <p><a href="{% url 'by_genre' st.genre.pk %}">{{ st.genre.name }}</a></p>
+            <p>{{ st.price }}</p>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

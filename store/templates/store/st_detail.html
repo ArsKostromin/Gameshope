@@ -1,0 +1,23 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %}{{ st.title }}{% endblock %}
+
+{% block content %}
+<div class="info_current">
+    <img src="{{ st.img }}"  alt="qwe" class="avatar_current">
+    <div class="info-text">
+        <h2>{{ st.title }}</h2>
+        <a href="{{st.publisher.get_absolute_url}}"><p>{{st.publisher}}</p></a>
+        <p><a href="{% url 'by_genre' st.genre.pk %}">{{ st.genre }}</a></p>
+        <p>{{ st.price }}</p>
+        <form action="{% url 'cart:cart_add' st.pk %}" method="post">
+            {{ cart_st_form }}
+            {% csrf_token %}
+            <input type="submit" value="В корзину">
+        </form>
+        <div class = 'content'>
+            <p>{{ st.content }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
