@@ -12,7 +12,7 @@ class St(models.Model):
     title = models.CharField(max_length=35, help_text="Enter field documentation", verbose_name='название')
     img = models.ImageField(upload_to='images', null=True, blank=True, verbose_name='Картинка')
     content = models.TextField(null=True, blank=True, verbose_name='Описание')
-    price = models.DecimalField(max_digits=10, decimal_places=0)
+    price = models.DecimalField(max_digits=10, decimal_places=0, default=None)
     published = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Опубликовано')
     genre = models.ForeignKey('Genre', null=True, on_delete=models.PROTECT, verbose_name='Жанр')
     publisher = models.ForeignKey('Publisher', on_delete=models.SET_NULL, null=True, verbose_name='Издатель')
