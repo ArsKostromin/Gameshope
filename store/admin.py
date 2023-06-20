@@ -7,6 +7,7 @@ class StAdmin (admin.ModelAdmin):
     list_display = ('title', 'content', 'price', 'img', 'published', 'publisher')
     list_display_links = ('title', 'content')
     search_fields = ('title', 'content',)
+    prepopulated_fields = {"slug": ("title", )}
 '''
     def image_show(self, obj):
         if obj.img:

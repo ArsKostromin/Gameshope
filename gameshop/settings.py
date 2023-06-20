@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'gameshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Gameshope',
+        'NAME': 'Gamestore',
         'USER': 'postgres',
         'PASSWORD': 'arsyakost2112',
         'HOST': 'localhost',

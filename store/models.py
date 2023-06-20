@@ -17,6 +17,7 @@ class St(models.Model):
     genre = models.ForeignKey('Genre', null=True, on_delete=models.PROTECT, verbose_name='Жанр')
     publisher = models.ForeignKey('Publisher', on_delete=models.SET_NULL, null=True, verbose_name='Издатель')
     buyers = models.ManyToManyField(User, verbose_name='Покупатели', blank=True)
+    slug = models.SlugField(unique=True, verbose_name="URL", db_index=True)
 
     class Meta:
         verbose_name_plural = 'Игры'
@@ -33,7 +34,7 @@ class St(models.Model):
         """
         Returns the url to access a particular book instance.
         """
-        return reverse('st-detail', args=[str(self.id)])
+        return reverse('st-detail', args={ self.slug})
 
     def __str__(self):
         """
@@ -43,6 +44,7 @@ class St(models.Model):
 
 class Genre(models.Model):
     name = models.CharField(max_length=20, db_index=True, verbose_name='название')
+    slug = models.SlugField(unique=True, verbose_name="URL", db_index=True)
 
     def __str__(self):
         return self.name
@@ -54,13 +56,14 @@ class Genre(models.Model):
 
 class Publisher(models.Model):
     name = models.CharField(max_length=20, verbose_name='название', db_index=True)
+    slug = models.SlugField(unique=True, verbose_name="URL", db_index=True)
 
     def get_absolute_url(self):
         """
         Returns the url to access a particular author instance.
         """
-        return reverse('publisher-detail', args=[str(self.id)])
-
+        return reverse('publisher-detail', args=[str(self.slug)])      
+#args
     def __str__(self):
         return self.name
 
