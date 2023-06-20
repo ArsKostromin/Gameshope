@@ -34,7 +34,7 @@ class St(models.Model):
         """
         Returns the url to access a particular book instance.
         """
-        return reverse('st-detail', args={ self.slug})
+        return reverse('st-detail', args=[str(self.id)])
 
     def __str__(self):
         """
