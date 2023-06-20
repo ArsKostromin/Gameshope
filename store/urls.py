@@ -10,8 +10,8 @@ from django.conf.urls.static import static
 urlpatterns = [   
     path('<int:genre_id>', by_genre, name = 'by_genre'),
     path('', StoreListView.as_view(), name = 'index'),
-    path('games<pk>', StoreDetailView.as_view(), name='st-detail'),
-    path('<slug>', PublisherDetailView.as_view(), name='publisher-detail'),
+    path('publisher<slug>', PublisherDetailView.as_view(), name='publisher-detail'),
+    path('<slug>', StoreDetailView.as_view(), name='st-detail'),
     path('mygames/', LoanedStsByUserListView.as_view(), name='my-borrowed'),
     path('signup/', SignUp.as_view(), name="signup")
 ]

@@ -9,7 +9,7 @@
     <div class="info">
         <img alt="asds" src="{{ st.img }}" class="avatar">
         <div class="info-text">
-            <a href="{% url 'st-detail' st.pk %}"><h2>{{st}}</h2></a>
+            <a href="{% url 'st-detail' st.slug %}"><h2>{{st}}</h2></a>
             <p><a href="{% url 'by_genre' st.genre.pk %}">{{ st.genre.name }}</a></p>
             <p>{{ st.price }}</p>
         </div>
