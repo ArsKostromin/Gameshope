@@ -20,8 +20,7 @@ class St(models.Model):
     publisher = models.ForeignKey('Publisher', on_delete=models.SET_NULL, null=True, verbose_name='Издатель')
     buyers = models.ManyToManyField(User, verbose_name='Покупатели', blank=True)
     slug = models.SlugField(unique=True, verbose_name="URL", db_index=True)
-    total_votes = models.IntegerField(default=0, null=True, blank=True)
-    votes_ratio = models.IntegerField(default=0, null=True, blank=True)
+
 
     class Meta:
         verbose_name_plural = 'Игры'
