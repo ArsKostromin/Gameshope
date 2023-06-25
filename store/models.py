@@ -72,3 +72,5 @@ class Publisher(models.Model):
         verbose_name = 'Издатель'
         ordering = ['name']
 
+
+
