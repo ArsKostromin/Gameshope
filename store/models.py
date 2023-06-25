@@ -5,6 +5,8 @@ from turtle import title
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+import uuid
+
 '''from datetime import date'''
 
 
@@ -18,6 +20,8 @@ class St(models.Model):
     publisher = models.ForeignKey('Publisher', on_delete=models.SET_NULL, null=True, verbose_name='Издатель')
     buyers = models.ManyToManyField(User, verbose_name='Покупатели', blank=True)
     slug = models.SlugField(unique=True, verbose_name="URL", db_index=True)
+    total_votes = models.IntegerField(default=0, null=True, blank=True)
+    votes_ratio = models.IntegerField(default=0, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = 'Игры'
@@ -71,4 +75,28 @@ class Publisher(models.Model):
         verbose_name_plural = 'Издатели'
         verbose_name = 'Издатель'
         ordering = ['name']
+
+class Creview(models.Model):
+    #user = models.ForeignKey(User, verbose_name="Пользователь", null=True,
+     #   on_delete=models.CASCADE),
+    game = models.ForeignKey(St, on_delete=models.CASCADE, verbose_name='игра')
+    review = models.TextField(help_text="Отзыв", null=True, blank=True, verbose_name="Сам отзыв")
+
+    VOTE_TYPE = (
+     ('up', 'Up Vote'),
+     ('down', 'Down Vote'),
+    )
+    value = models.CharField(max_length=200, choices=VOTE_TYPE)
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+
+    def __str__(self):
+        return self.value	
+
+'''
+    class Meta:
+        unique_together = [['user', 'game']]
+'''
+ 
+
 
