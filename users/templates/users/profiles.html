@@ -1,16 +1,14 @@
-{% extends "base_generic.html" %}
+{% extends 'layout/basic.html' %}
 
 {% block content %}
-{% for ss in sss %}
+{% for profiles in profiles %}
     <div class="info">
         <img alt="asds" src="{{ profiles.image }}" class="avatar">
         <div class="info-text">
             <a href=""><h2>{{ profiles.name }}</h2></a>
             <p><a href="">{{ profiles.username }}</a></p>
-            <p>{{ profiles.bio }} Руб</p>
+            <p>{{ profiles.bio }}</p>
         </div>
     </div>
 {% endfor %}
-
-
 {% endblock %}
