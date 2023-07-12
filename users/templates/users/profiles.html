@@ -3,9 +3,9 @@
 {% block content %}
 {% for profiles in profiles %}
     <div class="info">
-        <img alt="asds" src="{{ profiles.image }}" class="avatar">
+        <img alt="asds" src="{{ profiles.image.url }}" class="avatar">
         <div class="info-text">
-            <a href=""><h2>{{ profiles.name }}</h2></a>
+            <a href="{% url 'user-profile' profiles.id %}"><h2>{{ profiles.name }}</h2></a>
             <p><a href="">{{ profiles.username }}</a></p>
             <p>{{ profiles.bio }}</p>
         </div>
