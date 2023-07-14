@@ -22,6 +22,7 @@
         {% for review in st.review_set.all %} 
             {% if review.body %}
                 <strong>{{ review.owner }}</strong> 
+                <p>Отзывы:{{review.value}}</p>
                 <p >{{ review.body }}</p>
                 <p ><small>{{ review.created }}</small></p>
             {% endif %}
