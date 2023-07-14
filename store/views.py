@@ -56,8 +56,9 @@ class StoreDetailView(FormMixin, generic.DetailView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.st = self.get_object()
+        self.object.project = self.get_object()
         self.object.owner = self.request.user.profile
+
         self.object.save()
         return super().form_valid(form)
 
