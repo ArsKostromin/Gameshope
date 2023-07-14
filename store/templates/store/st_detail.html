@@ -30,11 +30,8 @@
 
 
 
-        {% if request.user.profile.id in project.reviewers %}
+        {% if request.user.profile.id in st.reviewers %}
         <p>Вы уже писали отзыв об этом проекте</p>
-
-        {% elif request.user.profile == project.owner %}
-        <p>Вы не можете оставлять отзывы к собственным проектам</p>
 
         {% elif request.user.is_authenticated %}
         <form class="form" action="{% url 'st-detail' st.slug %}" method="POST">
