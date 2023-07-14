@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from .models import Publisher, St
-from .models import Genre
+from .models import Genre, Review
 
 class StAdmin (admin.ModelAdmin):
     list_display = ('title', 'content', 'price', 'img', 'published', 'publisher')
@@ -32,5 +32,6 @@ class StInstanceAdmin(admin.ModelAdmin):
 admin.site.register(St, StAdmin)
 admin.site.register(Genre)
 admin.site.register(Publisher)
+admin.site.register(Review)
 
 

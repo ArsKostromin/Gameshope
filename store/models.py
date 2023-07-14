@@ -6,6 +6,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 import uuid
+from users.models import Profile
 
 '''from datetime import date'''
 
@@ -20,6 +21,9 @@ class St(models.Model):
     publisher = models.ForeignKey('Publisher', on_delete=models.SET_NULL, null=True, verbose_name='Издатель')
     buyers = models.ManyToManyField(User, verbose_name='Покупатели', blank=True)
     slug = models.SlugField(unique=True, verbose_name="URL", db_index=True)
+    total_votes = models.IntegerField(default=0, null=True, blank=True)
+    votes_ratio = models.IntegerField(default=0, null=True, blank=True)
+
 
 
     class Meta:
@@ -44,6 +48,25 @@ class St(models.Model):
         String for representing the Model object.
         """
         return self.title
+    
+
+    @property
+    def reviewers(self):
+        queryset = self.review_set.all().values_list('owner__id', flat=True)
+        return queryset
+ 
+    @property
+    def getVoteCount(self):
+        reviews = self.review_set.all()
+        upVotes = reviews.filter(value='up').count()
+        totalVotes = reviews.count()
+ 
+        ratio = (upVotes / totalVotes) * 100
+        self.vote_total = totalVotes
+        self.vote_ratio = ratio
+ 
+        self.save()
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=20, db_index=True, verbose_name='название')
@@ -76,6 +99,29 @@ class Publisher(models.Model):
         ordering = ['name']
 
 
- 
+
+class Review(models.Model):
+    VOTE_TYPE = (
+        ('up', 'Положительная оценка'),
+        ('down', 'Отрицательная оценка'),
+    )
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
+    project = models.ForeignKey(St, on_delete=models.CASCADE)
+    body = models.TextField(null=True, blank=True)
+    value = models.CharField(max_length=200, choices=VOTE_TYPE)
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True,
+                          primary_key=True, editable=False)
+
+    class Meta:
+        unique_together = [['owner', 'project']]
+        verbose_name_plural='Отзывы'
+        verbose_name = 'ОТзыв'
+        ordering = ('created',)
+
+    def __str__(self):
+        return self.value
+    
+
 
 

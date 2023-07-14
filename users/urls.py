@@ -22,4 +22,4 @@ if settings.DEBUG:
     path('account/', views.userAccount, name="account"),
     path('edit-account/', views.editAccount, name="edit-account"),
     
-    '''
+'''

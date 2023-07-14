@@ -10,6 +10,11 @@ from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 from cart.forms import CartAddProductForm
+from django.urls import reverse
+from django.views.generic.edit import FormMixin
+from .forms import ReviewForm
+
+
 
 
 def by_genre(request, genre_id):
@@ -29,13 +34,32 @@ class StoreListView(generic.ListView):
         context['genres'] = Genre.objects.all()
         return context
 
-class StoreDetailView(generic.DetailView):
+class StoreDetailView(FormMixin, generic.DetailView):
     model = St
+    form_class = ReviewForm
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['genres'] = Genre.objects.all()
         context['cart_st_form'] = CartAddProductForm()
         return context
+    
+    def get_success_url(self):
+        return reverse('st-detail', kwargs={'slug': self.get_object().slug})
+
+    
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.st = self.get_object()
+        self.object.owner = self.request.user.profile
+        self.object.save()
+        return super().form_valid(form)
 
 class PublisherDetailView(generic.DetailView):
     model = Publisher
