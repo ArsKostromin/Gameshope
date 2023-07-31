@@ -24,7 +24,22 @@ class St(models.Model):
     total_votes = models.IntegerField(default=0, null=True, blank=True)
     votes_ratio = models.IntegerField(default=0, null=True, blank=True)
 
+    @property
+    def reviewers(self):
+        queryset = self.review_set.all().values_list('owner__id', flat=True)
+        return queryset
 
+    @property
+    def getVoteCount(self):
+        reviews = self.review_set.all()
+        upVotes = reviews.filter(value='up').count()
+        totalVotes = reviews.count()
+        print('sss')
+        ratio = (upVotes / totalVotes) * 100
+        self.total_votes = totalVotes
+        self.votes_ratio = ratio
+        self.save()
+        print(self.votes_ratio, totalVotes)
 
     class Meta:
         verbose_name_plural = 'Игры'
@@ -50,22 +65,7 @@ class St(models.Model):
         return self.title
     
 
-    @property
-    def reviewers(self):
-        queryset = self.review_set.all().values_list('owner__id', flat=True)
-        return queryset
 
-    @property
-    def getVoteCount(self):
-        reviews = self.review_set.all()
-        upVotes = reviews.filter(value='up').count()
-        totalVotes = reviews.count()
-
-        ratio = (upVotes / totalVotes) * 100
-        self.vote_total = totalVotes
-        self.vote_ratio = ratio
-
-        self.save()
 
 
 

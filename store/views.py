@@ -58,9 +58,10 @@ class StoreDetailView(FormMixin, generic.DetailView):
         self.object = form.save(commit=False)
         self.object.project = self.get_object()
         self.object.owner = self.request.user.profile
-
         self.object.save()
+        self.object.project.getVoteCount 
         return super().form_valid(form)
+
 
 class PublisherDetailView(generic.DetailView):
     model = Publisher
