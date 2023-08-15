@@ -1,6 +1,17 @@
 {% extends 'layout/basic.html' %}
 
 {% block content %}
+<div class="info">
+<form id="searchForm" class="form" action="{% url 'profiles' %}" method="get">
+    <div class="form__field">
+        <label for="formInput#search">Поиск среди пользователей</label>
+        <input class="input input--text" id="formInput#search" type="text" name="search_query"
+            value="{{ search_query }}" placeholder="Найти пользователя по имени" />
+    </div>
+
+    <input class="btn btn--sub btn--lg" type="submit" value="Найти" />
+</form>
+</div>
 {% for profiles in profiles %}
     <div class="info">
         <img alt="asds" src="{{ profiles.image.url }}" class="avatar">

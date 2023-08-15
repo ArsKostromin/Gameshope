@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.urls import re_path
-from .views import by_genre, StoreListView, StoreDetailView, PublisherDetailView, LoanedStsByUserListView, SignUp
+from .views import by_genre, StoreListView, StoreDetailView, PublisherDetailView, LoanedStsByUserListView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -13,7 +13,7 @@ urlpatterns = [
     path('publisher-<slug>', PublisherDetailView.as_view(), name='publisher-detail'),
     path('<slug>', StoreDetailView.as_view(), name='st-detail'),
     path('mygames/', LoanedStsByUserListView.as_view(), name='my-borrowed'),
-    path('signup/', SignUp.as_view(), name="signup")
+    # path('signup/', SignUp.as_view(), name="signup")
 ]
 
 if settings.DEBUG:

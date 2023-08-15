@@ -8,8 +8,6 @@ from django.contrib.auth.models import User
 import uuid
 from users.models import Profile
 
-'''from datetime import date'''
-
 
 class St(models.Model):
     title = models.CharField(max_length=35, help_text="Enter field documentation", verbose_name='название')
@@ -65,10 +63,6 @@ class St(models.Model):
         return self.title
     
 
-
-
-
-
 class Genre(models.Model):
     name = models.CharField(max_length=20, db_index=True, verbose_name='название')
     slug = models.SlugField(unique=True, verbose_name="URL", db_index=True)
@@ -90,7 +84,7 @@ class Publisher(models.Model):
         Returns the url to access a particular author instance.
         """
         return reverse('publisher-detail', args=[str(self.slug)])      
-#args
+
     def __str__(self):
         return self.name
 
@@ -123,6 +117,3 @@ class Review(models.Model):
     def __str__(self):
         return self.value
     
-
-
-

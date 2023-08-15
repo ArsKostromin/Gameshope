@@ -144,3 +144,4 @@ CART_SESSION_ID = 'cart'
 
 #BASE_DIR / 'media'  os.path.join(BASE_DIR, 'media/images/')
 
+LOGIN_URL = ''

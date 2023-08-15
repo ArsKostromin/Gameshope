@@ -1,0 +1,14 @@
+{% extends 'layout/basic.html' %}
+
+{% block content %}
+<div class="info">
+    <img alt="asds" src="{{ profile.image.url }}" class="avatar">
+    <div class="info-text">
+        <a href=""><h2>{{ profile.name }}</h2></a>
+        <p><a href="">{{ profile.username }}</a></p>
+        <p>{{ profile.bio }}</p>
+        <p>{{ profile.email }}</p>
+        <p><a   href="{% url 'edit-account' %}">Изменить данные</a></p>
+    </div>
+</div>
+{% endblock %}
