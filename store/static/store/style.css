@@ -24,16 +24,39 @@ body {
 }
 
 .header  {
-    left: 2000px;
-    background-color: white;
-    top: 0px;
-    left: 0px;
     position: fixed;
-    min-width: 30000px;
-    float:left;
-    min-height: 5px;
+    top: 0;
+    width: 100%;
+    height: 90px;
+    background-color: white;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 999;
+
 }
+
+/* 
+left: 2000px;
+background-color: white;
+top: 0px;
+left: 0px;
+position: fixed;
+min-width: 30000px;
+float:left;
+min-height: 5px;
+display: flex; */
+
+
+/* display: flex;
+justify-content: space-between;
+align-items: center;
+height: 50px;
+background-color: white;
+padding: 0 20px;
+top: 0px;
+left: 0px; */
 
 header h1 {
     text-align: center;
@@ -165,4 +188,54 @@ mygame_info-text {
     min-width: 4000px;
 }
 
+.hightbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 90px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 999;
+  }
 
+  
+.logo-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 30px;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    font-size: 19px;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-right: 100px;
+  }
+  
+  .avatar-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+  
+  .username {
+    color: #333;
+    text-decoration: none;
+    margin-right: 10px;
+  }
+  
+  .signout,
+  .auth-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  
