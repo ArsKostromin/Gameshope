@@ -6,7 +6,7 @@
 
 {% if page == 'register' %}
 
-<div class="">
+<div class="notification">
     <a href="{% url 'profiles' %}"><i class=''></i>другие пользователи</a>
     <h3>Зарегистрироваться</h3>
     <p>Создать аккаунт</p>
@@ -36,11 +36,11 @@
 
 {% else %}
 
+<div class="notification"> 
 
-
-    <a href="{% url 'profiles' %}">IT<i class=""></i>finder</a>
+    <a href="{% url 'profiles' %}"><i class=""></i>пользователи</a>
     <h3>Вход в аккаунт</h3>
-    <p>Добро пожаловать на ITfinder</p>
+    <p>Добро пожаловать на Store of game secrets</p>
 
     <form action="" method="POST" class="">
         {% csrf_token %}
@@ -60,6 +60,7 @@
     <p>Нет аккаунта?</p>
     <a href="{% url 'register' %}">Зарегистрироваться</a>
 
+</div>
 
 {% endif %}
 
