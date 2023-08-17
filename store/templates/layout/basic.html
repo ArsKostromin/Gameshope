@@ -12,11 +12,11 @@
 
 <body>
     <div class="header">
-        <a href="{% url 'index' %}"><h1 class="namesite">Game <strong>Secret store</strong></h1></a> 
+        <a href="{% url 'index' %}"><h1 class="namesite">Store<strong> of game secrets</strong></h1></a> 
         <div class="left">
             <ul>
                {% if user.is_authenticated %}
-                 <a href="{% url 'account' %}"><li>{{ user.get_username }}</li></a>
+                 <a href="{% url 'account' %}"><li>{{ user.profile.name }}</li></a>
                  <a href="{% url 'logout' %}">выйти</a>
                {% else %}
                  <li><a href="{% url 'login' %}">Войти</a></li>

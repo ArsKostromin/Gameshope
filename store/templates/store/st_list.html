@@ -1,7 +1,14 @@
 {% extends 'layout/basic.html' %}
 
 {% block content %}
-{% for ss in sss %}
+<div class="info">
+    <form method="GET" action="{% url 'index' %}">
+        <label for="formInput#search">Поиск среди игр</label>
+        <input type="text" name="query" placeholder="Поиск по названию">
+        <button type="submit">Поиск</button>
+      </form>
+</div>
+{% for ss in st_list %}
     <div class="info">
         <img alt="asds" src="{{ ss.img }}" class="avatar">
         <div class="info-text">

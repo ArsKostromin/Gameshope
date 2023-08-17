@@ -13,7 +13,8 @@ from cart.forms import CartAddProductForm
 from django.urls import reverse
 from django.views.generic.edit import FormMixin
 from .forms import ReviewForm
-
+from .utils import searchSt
+from django.db.models import Q
 
 
 
@@ -27,12 +28,21 @@ def by_genre(request, genre_id):
 
 class StoreListView(generic.ListView):
     model = St
-    context_object_name = 'sss'
+    context_object_name = 'st_list'
     paginate_by = 4
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['genres'] = Genre.objects.all()
         return context
+    
+    def get_queryset(self):
+        query = self.request.GET.get('query')
+        if query:
+            queryset = St.objects.filter(title__icontains=query)
+        else:
+            queryset = St.objects.all()
+        return queryset
 
 class StoreDetailView(FormMixin, generic.DetailView):
     model = St
@@ -70,7 +80,7 @@ class PublisherDetailView(generic.DetailView):
         context['genres'] = Genre.objects.all()
         return context
 
-class LoanedStsByUserListView(LoginRequiredMixin,generic.ListView):
+class LoanedStsByUserListView(LoginRequiredMixin, generic.ListView):
     model=St
     template_name = 'store\st_list_borrowed_user.html'
     paginate_by=10
@@ -79,10 +89,7 @@ class LoanedStsByUserListView(LoginRequiredMixin,generic.ListView):
         context['genres'] = Genre.objects.all()
         return context
     def get_queryset(self):
-        return St.objects.filter(buyers=self.request.user)
+        st_list = St.objects.filter(buyers=self.request.user)
+        return st_list
 
 
-# class SignUp(CreateView):
-#     form_class = UserCreationForm
-#     success_url = reverse_lazy("login")
-#     template_name = "registration/signup.html"
