@@ -6,82 +6,59 @@
 
 {% if page == 'register' %}
 
-<div class="auth">
-    <div class="card">
-        <div class="auth__header text-center">
-            <a href="{% url 'profiles' %}">IT<i class="fa fa-search"></i>finder</a>
-            <h3>Зарегистрироваться</h3>
-            <p>Создать аккаунт разработчика</p>
-        </div>
+<div class="">
+    <a href="{% url 'profiles' %}"><i class=''></i>другие пользователи</a>
+    <h3>Зарегистрироваться</h3>
+    <p>Создать аккаунт</p>
 
-        <form method="POST" action="{% url 'register' %}" class="form auth__form">
-            {% csrf_token %}
+    <form method="POST" action="{% url 'register' %}" class="">
+        {% csrf_token %}
 
-            {% for field in form %}
-            <div class="form__field">
+        {% for field in form %}
                 <label for="formInput#text">{{ field.label }}</label>
                 {{ field }}
 
                 {% for error in field.errors %}
-                <p style="color: red;">{{ error }}</p>
+                    <p style="color: red;">{{ error }}</p>
                 {% endfor %}
 
-            </div>
 
-            {% endfor %}
+        {% endfor %}
 
-            <div class="auth__actions">
-                <input class="btn btn--sub btn--lg" type="submit" value="Сохранить" />
-            </div>
-        </form>
-        <div class="auth__alternative">
-            <p>Уже есть аккаунт?</p>
-            <a href="{% url 'login' %}">Войти</a>
-        </div>
-    </div>
+        <input class="" type="submit" value="Сохранить" />
+    </form>
+
+
+    <p>Уже есть аккаунт?</p>
+    <a href="{% url 'login' %}">Войти</a>
+
 </div>
-
-
 
 {% else %}
 
-<div class="auth">
 
-    <div class="card">
 
-        <div class="auth__header text-center">
-                <a href="{% url 'profiles' %}">IT<i class="fa fa-search"></i>finder</a>
-            <h3>Вход в аккаунт</h3>
-            <p>Добро пожаловать на ITfinder</p>
-        </div>
+    <a href="{% url 'profiles' %}">IT<i class=""></i>finder</a>
+    <h3>Вход в аккаунт</h3>
+    <p>Добро пожаловать на ITfinder</p>
 
-        <form action="" method="POST" class="form auth__form">
-            {% csrf_token %}
+    <form action="" method="POST" class="">
+        {% csrf_token %}
 
-            <div class="form__field">
-                <label for="formInput#text">Логин: </label>
-                <input class="input input--text" id="formInput#text" type="text" name="username"
-                    placeholder="Введите имя пользователя" />
-            </div>
+        <label for="formInput#text">Логин: </label>
+        <input class="" id="formInput#text" type="text" name="username"
+            placeholder="Введите имя пользователя" />
 
-            <!-- Input:Password -->
-            <div class="form__field">
-                <label for="formInput#password">Пароль: </label>
-                <input class="input input--password" id="formInput#passowrd" type="password" name="password"
-                    placeholder="••••••••" />
-            </div>
+        <!-- Input:Password -->
+        <label for="formInput#password">Пароль: </label>
+        <input class="" id="" type="password" name="password"
+            placeholder="••••••••" />
 
-            <div class="auth__actions">
-                <input class="btn btn--sub btn--lg" type="submit" value="Войти" />
-            </div>
-        </form>
+        <input class="" type="submit" value="Войти" />
+    </form>
 
-        <div class="auth__alternative">
-            <p>Нет аккаунта?</p>
-            <a href="{% url 'register' %}">Зарегистрироваться</a>
-        </div>
-    </div>
-</div>
+    <p>Нет аккаунта?</p>
+    <a href="{% url 'register' %}">Зарегистрироваться</a>
 
 
 {% endif %}
