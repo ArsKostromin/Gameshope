@@ -37,26 +37,7 @@ body {
 
 }
 
-/* 
-left: 2000px;
-background-color: white;
-top: 0px;
-left: 0px;
-position: fixed;
-min-width: 30000px;
-float:left;
-min-height: 5px;
-display: flex; */
 
-
-/* display: flex;
-justify-content: space-between;
-align-items: center;
-height: 50px;
-background-color: white;
-padding: 0 20px;
-top: 0px;
-left: 0px; */
 
 header h1 {
     text-align: center;
@@ -119,7 +100,7 @@ a:active {
 
 nav {
     position: fixed;
-    left: 365px;
+    left: 35px;
     font-size: 16pt;
     margin-bottom: 100px;
     line-height: 40px;
