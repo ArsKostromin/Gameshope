@@ -11,20 +11,23 @@
 </head>
 
 <body>
-    <div class="header">
-        <a href="{% url 'index' %}"><h1 class="namesite">Store<strong> of game secrets</strong></h1></a> 
-        <div class="left">
-            <ul>
-               {% if user.is_authenticated %}
-                 <a href="{% url 'account' %}"><li>{{ user.profile.name }}</li></a>
-                 <a href="{% url 'logout' %}">выйти</a>
-               {% else %}
-                 <li><a href="{% url 'login' %}">Войти</a></li>
-                 <li><a href="{% url 'register' %}">Регистрация</a></li>
-               {% endif %}
-              </ul>
+    <header class="hightbar">
+        <div class="logo">
+          <a href="{% url 'index' %}" class="logo-link">Secret Games Store</a>
         </div>
-    </div>
+        <div class="user-info">
+          {% if user.is_authenticated %}
+            <div class="avatar-profile">
+              <img src="{{ user.profile.image }}" alt="Аватар" class="avatar-img">
+            </div>
+            <a href="{% url 'account' %}" class="username">{{ user.profile.name }}</a>
+            <a href="{% url 'logout' %}" class="signout">Выход</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="auth-link">Войти</a>
+            <a href="{% url 'register' %}" class="auth-link">Регистрация</a>
+          {% endif %}
+        </div>
+      </header>
     <div class="panel">
         <nav>
             {% if user.is_authenticated %}
