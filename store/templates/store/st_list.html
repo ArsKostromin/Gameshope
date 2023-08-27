@@ -1,0 +1,22 @@
+{% extends 'layout/basic.html' %}
+
+{% block content %}
+<div class="info">
+    <form method="GET" action="{% url 'index' %}">
+        <label for="formInput#search">Поиск среди игр</label>
+        <input type="text" name="query" placeholder="Поиск по названию">
+        <button type="submit">Поиск</button>
+      </form>
+</div>
+{% for ss in st_list %}
+    <div class="info">
+        <img alt="asds" src="{{ ss.img }}" class="avatar">
+        <div class="info-text">
+            <a href="{{ ss.get_absolute_url }}"><h2>{{ ss.title }}</h2></a>
+            <p><a href="{% url 'by_genre' ss.genre.pk %}">{{ ss.genre.name }}</a></p>
+            <p>{{ ss.price }} Руб</p>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'layout/basic.html' %}
+<title>{% block title %}Авторизация{% endblock %}</title>
+
+{% block content %}
+
+
+{% if page == 'register' %}
+
+<div class="notification">
+    <a href="{% url 'profiles' %}"><i class=''></i>другие пользователи</a>
+    <h3>Зарегистрироваться</h3>
+    <p>Создать аккаунт</p>
+
+    <form method="POST" action="{% url 'register' %}" class="">
+        {% csrf_token %}
+
+        {% for field in form %}
+                <label for="formInput#text">{{ field.label }}</label>
+                {{ field }}
+
+                {% for error in field.errors %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endfor %}
+
+
+        {% endfor %}
+
+        <input class="" type="submit" value="Сохранить" />
+    </form>
+
+
+    <p>Уже есть аккаунт?</p>
+    <a href="{% url 'login' %}">Войти</a>
+
+</div>
+
+{% else %}
+
+<div class="notification"> 
+
+    <a href="{% url 'profiles' %}"><i class=""></i>пользователи</a>
+    <h3>Вход в аккаунт</h3>
+    <p>Добро пожаловать на Store of game secrets</p>
+
+    <form action="" method="POST" class="">
+        {% csrf_token %}
+
+        <label for="formInput#text">Логин: </label>
+        <input class="" id="formInput#text" type="text" name="username"
+            placeholder="Введите имя пользователя" />
+
+        <!-- Input:Password -->
+        <label for="formInput#password">Пароль: </label>
+        <input class="" id="" type="password" name="password"
+            placeholder="••••••••" />
+
+        <input class="" type="submit" value="Войти" />
+    </form>
+
+    <p>Нет аккаунта?</p>
+    <a href="{% url 'register' %}">Зарегистрироваться</a>
+
+</div>
+
+{% endif %}
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<div>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Главная{% endblock %}</title>
+    <link rel="icon" href="{% static 'store\logo.jpg' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'store/style.css' %}">
+</head>
+<body>
+    <header class="hightbar">
+        <div class="logo">
+          <a href="{% url 'index' %}" class="logo-link">Secret Games Store</a>
+        </div>
+        <div class="user-info">
+          {% if user.is_authenticated %}
+            <div class="avatar-profile">
+              <img src="{{ user.profile.image }}" alt="Аватар" class="avatar-img">
+            </div>
+            <a href="{% url 'account' %}" class="username">{{ user.profile.name }}</a>
+            <a href="{% url 'logout' %}" class="signout">Выход</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="auth-link">Войти</a>
+            <a href="{% url 'register' %}" class="auth-link">Регистрация</a>
+          {% endif %}
+        </div>
+      </header>
+    <div class="panel">
+        <nav>
+            {% if user.is_authenticated %}
+                <a href="{% url 'my-borrowed' %}">Библиотека</a>
+                {% with total_items=cart|length %}
+                {% if cart|length > 0 %}
+                В корзине:
+                <a href="{% url 'cart:cart_detail' %}">
+                    {{ total_items }} шт ,Руб {{ cart.get_total_price }}
+                </a>
+                {% else %}
+                Корзина пуста
+                {% endif %}
+                {% endwith %}
+            {% endif %}
+            {% for genre in genres %}
+            <a href="{% url 'by_genre' genre.pk %}">{{genre.name }}</a>
+            {% endfor %}
+        </nav>
+    </div>
+    <div class="sran"></div>
+    <section>
+    {% block content %}
+    {% endblock %}
+    </section>
+    {% block pagination %}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Назад</a>
+                {% endif %}
+                <span class="page-current">
+                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Следующая</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+  {% endblock %}
+</body>
+</html>
+

@@ -1,0 +1,19 @@
+{% extends 'layout/basic.html' %}
+<title>{% block title %}Изменить профиль{% endblock %}</title>
+{% block content %}
+<div class="info">
+    <h2>Изменить профиль</h2>
+</div>
+<div class="info">
+    <form class="form" method="POST" action="{% url 'edit-account' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+            <label for="formInput#text">{{ field.label }}</label>
+            <div>
+                {{ field }}
+            </div>
+        {% endfor %}
+    <input type="submit" value="Сохранить" />
+    </form>
+</div>
+ {% endblock %}
