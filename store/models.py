@@ -17,7 +17,6 @@ class St(models.Model):
     published = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Опубликовано')
     genre = models.ForeignKey('Genre', null=True, on_delete=models.PROTECT, verbose_name='Жанр')
     publisher = models.ForeignKey('Publisher', on_delete=models.SET_NULL, null=True, verbose_name='Издатель')
-    buyers = models.ManyToManyField(User, verbose_name='Покупатели', blank=True)
     slug = models.SlugField(unique=True, verbose_name="URL", db_index=True)
     total_votes = models.IntegerField(default=0, null=True, blank=True)
     votes_ratio = models.IntegerField(default=0, null=True, blank=True)
