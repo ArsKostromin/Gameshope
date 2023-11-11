@@ -1,1 +1,1 @@
-# Gameshope
+# GameshopeDjango
