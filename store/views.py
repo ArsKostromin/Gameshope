@@ -1,4 +1,5 @@
 from multiprocessing import context
+from rest_framework.response import Response
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
@@ -15,7 +16,8 @@ from django.views.generic.edit import FormMixin
 from .forms import ReviewForm
 from .utils import searchSt
 from django.db.models import Q
-
+from rest_framework.views import APIView
+from store.serializers import GameSerializer, GenreSerializer, PublisherSerializer
 
 
 def by_genre(request, genre_id):
@@ -93,3 +95,37 @@ class LoanedStsByUserListView(LoginRequiredMixin, generic.ListView):
         return st_list
 
 
+class GetGameInfoView(APIView):
+    def get(self, request):
+        queryset = St.objects.all()
+        serializer_context = {'request': request}
+        serializer_class = GameSerializer(
+            instance=queryset,
+            many=True,
+            context=serializer_context
+        )
+        return Response(serializer_class.data)
+
+
+class GetGenreInfoView(APIView):
+    def get(self, request):
+        queryset = Genre.objects.all()
+        serializer_context = {'request': request}
+        serializer_class = GenreSerializer(
+            instance=queryset,
+            many=True,
+            context=serializer_context
+        )
+        return Response(serializer_class.data)
+
+
+class GetPublisherInfoView(APIView):
+    def get(self, request):
+        queryset = Publisher.objects.all()
+        serializer_context = {'request': request}
+        serializer_class = PublisherSerializer(
+            instance=queryset,
+            many=True,
+            context=serializer_context
+        )
+        return Response(serializer_class.data)

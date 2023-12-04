@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -78,16 +79,27 @@ WSGI_APPLICATION = 'gameshop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Gamestore',
-        'USER': 'postgres',
-        'PASSWORD': 'arsyakost2112',
-        'HOST': 'localhost',
-        'PORT': '5432',
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'Gamestore',
+#         'USER': 'postgres',
+#         'PASSWORD': 'berra228',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#         }
+# }
 
 
 # Password validation
@@ -145,3 +157,9 @@ CART_SESSION_ID = 'cart'
 #BASE_DIR / 'media'  os.path.join(BASE_DIR, 'media/images/')
 
 LOGIN_URL = ''
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
