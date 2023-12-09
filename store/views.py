@@ -18,6 +18,10 @@ from .utils import searchSt
 from django.db.models import Q
 from rest_framework.views import APIView
 from store.serializers import GameSerializer, GenreSerializer, PublisherSerializer
+from rest_framework import permissions, renderers, viewsets, filters
+from django_filters.rest_framework import DjangoFilterBackend
+from django.shortcuts import get_object_or_404
+
 
 
 def by_genre(request, genre_id):
@@ -95,17 +99,33 @@ class LoanedStsByUserListView(LoginRequiredMixin, generic.ListView):
         return st_list
 
 
-class GetGameInfoView(APIView):
-    def get(self, request):
-        queryset = St.objects.all()
-        serializer_context = {'request': request}
-        serializer_class = GameSerializer(
-            instance=queryset,
-            many=True,
-            context=serializer_context
-        )
-        return Response(serializer_class.data)
+class GametViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = St.objects.all()
+    serializer_class = GameSerializer
 
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ['title', 'genre__name', 'publisher__name']
+    search_fields = ['title', 'genre__name', 'publisher__name']
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        title = self.request.query_params.get('title', None)
+        genre = self.request.query_params.get('genre', None)
+        publisher = self.request.query_params.get('publisher', None)
+
+        # Применение фильтров, если они заданы
+        if title:
+            queryset = queryset.filter(title=title)
+        if genre:
+            genre_obj = get_object_or_404(Genre, name=genre)
+            queryset = queryset.filter(genre=genre_obj)
+
+        if publisher:
+            publisher_obj = get_object_or_404(Publisher, name=publisher)
+            queryset = queryset.filter(publisher=publisher_obj)
+
+        return queryset
 
 class GetGenreInfoView(APIView):
     def get(self, request):
