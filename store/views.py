@@ -21,7 +21,7 @@ from store.serializers import GameSerializer, GenreSerializer, PublisherSerializ
 from rest_framework import permissions, renderers, viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
-
+from store.permissions import IsAdminOrSuperuser
 
 
 def by_genre(request, genre_id):
@@ -99,14 +99,15 @@ class LoanedStsByUserListView(LoginRequiredMixin, generic.ListView):
         return st_list
 
 
-class GametViewSet(viewsets.ReadOnlyModelViewSet):
+class GametViewSet(viewsets.ModelViewSet):
     queryset = St.objects.all()
     serializer_class = GameSerializer
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['title', 'genre__name', 'publisher__name']
     search_fields = ['title', 'genre__name', 'publisher__name']
-    
+    permission_classes = [IsAdminOrSuperuser]
+
     def get_queryset(self):
         queryset = super().get_queryset()
 
