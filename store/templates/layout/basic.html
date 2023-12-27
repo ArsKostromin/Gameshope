@@ -43,7 +43,7 @@
                 {% endwith %}
             {% endif %}
             {% for genre in genres %}
-            <a href="{% url 'by_genre' genre.pk %}">{{genre.name }}</a>
+            <a href="{% url 'by_genre' genre.slug %}">{{genre.name }}</a>
             {% endfor %}
         </nav>
     </div>

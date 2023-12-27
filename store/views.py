@@ -17,17 +17,19 @@ from .forms import ReviewForm
 from .utils import searchSt
 from django.db.models import Q
 from rest_framework.views import APIView
-from store.serializers import GameSerializer, GenreSerializer, PublisherSerializer
+from store.serializers import GamePostSerializer, GameSerializer, GenreSerializer, PublisherSerializer
 from rest_framework import permissions, renderers, viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
 from store.permissions import IsAdminOrSuperuser
+from rest_framework import status
+from rest_framework.viewsets import ModelViewSet
 
 
-def by_genre(request, genre_id):
-    sss = St.objects.filter(genre=genre_id)
+def by_genre(request, genre_slug):
+    current_genre = get_object_or_404(Genre, slug=genre_slug)
+    sss = St.objects.filter(genre=current_genre)
     genres = Genre.objects.all()
-    current_genre = Genre.objects.get(pk=genre_id)
     cart_st_form = CartAddProductForm()
     context = {'sss': sss, 'genres': genres, 'current_genre': current_genre, 'cart_st_form': cart_st_form,}
     return render(request, 'store/by_genre.html', context)
@@ -88,7 +90,7 @@ class PublisherDetailView(generic.DetailView):
 
 class LoanedStsByUserListView(LoginRequiredMixin, generic.ListView):
     model=St
-    template_name = 'store\st_list_borrowed_user.html'
+    template_name = 'store\\st_list_borrowed_user.html'
     paginate_by=10
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -99,9 +101,13 @@ class LoanedStsByUserListView(LoginRequiredMixin, generic.ListView):
         return st_list
 
 
-class GametViewSet(viewsets.ModelViewSet):
+class GametViewSet(ModelViewSet):
     queryset = St.objects.all()
-    serializer_class = GameSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'create' or self.action == 'update' or self.action == 'partial_update':
+            return GamePostSerializer
+        return GameSerializer
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['title', 'genre__name', 'publisher__name']
@@ -128,7 +134,8 @@ class GametViewSet(viewsets.ModelViewSet):
 
         return queryset
 
-class GetGenreInfoView(APIView):
+
+class GetGenreInfoView(APIView): 
     def get(self, request):
         queryset = Genre.objects.all()
         serializer_context = {'request': request}

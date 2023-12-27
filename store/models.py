@@ -67,6 +67,10 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
+
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.name)
+    #     super(Genre, self).save(*args, **kwargs)
     
     class Meta:
         verbose_name_plural = 'Жанры'
@@ -85,6 +89,10 @@ class Publisher(models.Model):
 
     def __str__(self):
         return self.name
+
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.name)
+    #     super(Publisher, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = 'Издатели'

@@ -7,9 +7,8 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 
 
-
 urlpatterns = [
-    path('<int:genre_id>', by_genre, name='by_genre'),
+    path('genre-<slug:genre_slug>', by_genre, name='by_genre'),
     path('', StoreListView.as_view(), name='index'),
     path('mygames', LoanedStsByUserListView.as_view(), name='my-borrowed'),
     path('publisher-<slug>', PublisherDetailView.as_view(), name='publisher-detail'),
@@ -23,7 +22,7 @@ api_urlpatterns = [
     path('api/genre/', GetGenreInfoView.as_view()),
     path('api/publisher/', GetPublisherInfoView.as_view()),
     path('api/', include(router.urls)),
-]
+    ]
 
 urlpatterns += api_urlpatterns
 

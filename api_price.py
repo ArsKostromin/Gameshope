@@ -13,7 +13,6 @@ if response.status_code == 200:
     for i in data['results']:
         if int(i['price'])>0:
             print(i)
-    # print(data)
 else:
     print(f"Ошибка при запросе: {response.status_code}")
     print(response.text)
