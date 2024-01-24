@@ -2,12 +2,12 @@ from rest_framework import serializers
 from store.models import St, Genre, Publisher, Review
 
 class GameSerializer(serializers.ModelSerializer):
-    published = serializers.ReadOnlyField(source='publisher.name')
+    publisher = serializers.ReadOnlyField(source='publisher.name')
     genre = serializers.ReadOnlyField(source='genre.name')
 
     class Meta:
         model = St
-        fields = ['title', 'content', 'price', 'published', 'genre', 'id', 'slug', 'total_votes', 'votes_ratio']
+        fields = ['title', 'content', 'price', 'publisher', 'published', 'genre', 'id', 'slug', 'total_votes', 'votes_ratio']
 
 
 class GenreSerializer(serializers.ModelSerializer):
