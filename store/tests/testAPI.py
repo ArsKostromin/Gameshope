@@ -71,3 +71,11 @@ class GameTests(APITestCase):
 
     def test_user_is_staff(self):
         self.assertEqual(self.user_test1.is_staff, True)
+        
+    def test_publisher(self):
+        response = self.client.get(reverse('APIpublisher'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+    def test_genre(self):
+        response = self.client.get(reverse('APIgenre'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

@@ -19,8 +19,8 @@ router = DefaultRouter()
 router.register(r'game', GametViewSet, basename="game")
 
 api_urlpatterns = [
-    path('api/genre/', GetGenreInfoView.as_view()),
-    path('api/publisher/', GetPublisherInfoView.as_view()),
+    path('api/genre/', GetGenreInfoView.as_view(), name='APIgenre'),
+    path('api/publisher/', GetPublisherInfoView.as_view(), name='APIpublisher'),
     path('api/', include(router.urls)),
     ]
 
