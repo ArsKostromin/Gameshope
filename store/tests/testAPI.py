@@ -27,23 +27,22 @@ class GameTests(APITestCase):
             votes_ratio=4,
         )
 
-        user_test1 = User.objects.create_superuser(username='test', email='sobaka@gmail.com', password='q1w2e3')
-        user_test1.save()
-        self.user_test1_token = Token.objects.create(user=user_test1)
-
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.user_test1_token.key)  # Установка заголовка авторизации
-
+        self.user_test1 = User.objects.create_superuser(username='test', email='sobaka@gmail.com', password='q1w2e3')
+        self.user_test1.save()
+        self.user_test2 = User.objects.create_user(username='test2', password='123qwerg')
+        
+        
         self.data = {
-            "title": "test game name",
-            "content": "this is a test game",
-            "price": '1000',
-            "slug": "test",
-            "publisher": self.publisher_test1,
-            "genre": self.genre_test1,
-            'id': 1,
-            'total_votes': 5,
-            'votes_ratio': 4,
+            "title": "new game title",
+            "content": "this is a new test game",
+            "price": 1500,  
+            "slug": "new-test",  
+            "publisher": Publisher.objects.create(name='new_test_publisher', slug='new_test_publisher'),
+            "genre": Genre.objects.create(name='new_test_genre', slug='new_test_genre'),
         }
+        
+        self.user_test1_token = Token.objects.create(user=self.user_test1)
+        self.user_test2_token = Token.objects.create(user=self.user_test2)
 
 
     def test_game_list(self):
@@ -61,10 +60,14 @@ class GameTests(APITestCase):
         self.assertEqual(response.json().get('title'), "test game name")
         
     def test_create_invalid_game(self):
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.user_test2_token.key}')
         response = self.client.post(reverse('game-list'), self.data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         
-    # def test_create_valid_game(self): 
-    #     # self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.user_test1_token.key)
-    #     response = self.client.post(reverse('game-list'), self.data)
-    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED) 
+    def test_create_valid_game(self): 
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.user_test1_token.key}') 
+        response = self.client.post(reverse('game-list'), self.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED) 
+
+    def test_user_is_staff(self):
+        self.assertEqual(self.user_test1.is_staff, True)

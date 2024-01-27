@@ -103,9 +103,9 @@ class LoanedStsByUserListView(LoginRequiredMixin, generic.ListView):
 
 class GametViewSet(ModelViewSet):
     queryset = St.objects.all()
-    permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly,
-        IsAdminOrSuperuser, )
+    # permission_classes = [
+    #     permissions.IsAuthenticatedOrReadOnly, 
+    #     IsAdminOrSuperuser]
 
     def get_serializer_class(self):
         if self.action == 'create' or self.action == 'update' or self.action == 'partial_update':

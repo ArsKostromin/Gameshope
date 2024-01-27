@@ -41,9 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
-    'rest_framework.authtoken',
     'rest_framework',
     'django_filters',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -162,6 +162,13 @@ LOGIN_URL = ''
 
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
 }
+
+SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Используется для хранения сессий в базе данных
+SESSION_COOKIE_SECURE = True  # Установите в True для использования безопасных cookie в HTTPS-соединениях
