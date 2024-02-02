@@ -103,9 +103,9 @@ class LoanedStsByUserListView(LoginRequiredMixin, generic.ListView):
 
 class GametViewSet(ModelViewSet):
     queryset = St.objects.all()
-    # permission_classes = [
-    #     permissions.IsAuthenticatedOrReadOnly, 
-    #     IsAdminOrSuperuser]
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly, 
+        IsAdminOrSuperuser]
 
     def get_serializer_class(self):
         if self.action == 'create' or self.action == 'update' or self.action == 'partial_update':
@@ -115,7 +115,7 @@ class GametViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['title', 'genre__name', 'publisher__name']
     search_fields = ['title', 'genre__name', 'publisher__name']
-    permission_classes = [IsAdminOrSuperuser]
+    # permission_classes = [IsAdminOrSuperuser]
 
     def get_queryset(self):
         queryset = super().get_queryset()

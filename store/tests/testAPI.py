@@ -7,6 +7,8 @@ from rest_framework.test import APITestCase, URLPatternsTestCase
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from store.models import Publisher, St, Genre
+from store.serializers import GameSerializer, GenreSerializer, PublisherSerializer
+
 
 class GameTests(APITestCase):
     def setUp(self):
@@ -79,3 +81,16 @@ class GameTests(APITestCase):
     def test_genre(self):
         response = self.client.get(reverse('APIgenre'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_genre2(self):
+        response = self.client.get(reverse('game-detail', kwargs={'pk': self.one_game.id}))
+        expected_genre = {'genre': 'test_genre'}
+        self.assertEqual(expected_genre['genre'], response.json().get('genre'))
+
+    def test_game_serializer(self):
+        response = self.client.get(reverse('game-detail', kwargs={'pk': self.one_game.id}))
+        serializer_data = GameSerializer(self.one_game).data
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(serializer_data, response.data)
+
+        
