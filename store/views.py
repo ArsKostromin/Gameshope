@@ -88,19 +88,6 @@ class PublisherDetailView(generic.DetailView):
         context['genres'] = Genre.objects.all()
         return context
 
-class LoanedStsByUserListView(LoginRequiredMixin, generic.ListView):
-    model=St
-    template_name = 'store\\st_list_borrowed_user.html'
-    paginate_by=10
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['genres'] = Genre.objects.all()
-        return context
-    def get_queryset(self):
-        st_list = St.objects.filter(buyers=self.request.user)
-        return st_list
-
-
 class GametViewSet(ModelViewSet):
     queryset = St.objects.all()
     permission_classes = [
