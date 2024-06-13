@@ -1,6 +1,7 @@
 from django.conf import settings
 from decimal import Decimal
 from store.models import St
+from django.core.cache import cache
 
 
 class Cart(object):
@@ -29,7 +30,6 @@ class Cart(object):
         else:
             self.cart[St_id]['quantity'] += quantity
         self.save()
-
 
     def save(self):
         self.session.modified = True

@@ -62,6 +62,7 @@ class StoreListView(GenrePublisherYear, generic.ListView):
 class StoreDetailView(FormMixin, generic.DetailView):
     model = St
     form_class = ReviewForm
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['cart_st_form'] = CartAddProductForm()
@@ -70,7 +71,6 @@ class StoreDetailView(FormMixin, generic.DetailView):
     def get_success_url(self):
         return reverse('st-detail', kwargs={'slug': self.get_object().slug})
 
-    
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
@@ -89,6 +89,7 @@ class StoreDetailView(FormMixin, generic.DetailView):
 
 class PublisherDetailView(generic.DetailView):
     model = Publisher
+    
     
 class FilterGameView(GenrePublisherYear, generic.ListView):
     '''Фильтр игр'''
