@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'rest_framework',
     'django_filters',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    "debug_toolbar"
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        "debug_toolbar.middleware.DebugToolbarMiddleware"
 ]
 
 ROOT_URLCONF = 'gameshop.urls'
@@ -172,3 +174,8 @@ REST_FRAMEWORK = {
 
 SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Используется для хранения сессий в базе данных
 SESSION_COOKIE_SECURE = True  # Установите в True для использования безопасных cookie в HTTPS-соединениях
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+

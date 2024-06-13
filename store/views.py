@@ -50,18 +50,12 @@ class StoreListView(GenrePublisherYear, generic.ListView):
     model = St
     context_object_name = 'st_list'
     paginate_by = 4
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['genres'] = Genre.objects.all()
-        return context
-    
     def get_queryset(self):
         query = self.request.GET.get('query')
         if query:
             queryset = St.objects.filter(title__icontains=query)
         else:
-            queryset = St.objects.all()
+            queryset = St.objects.all().select_related('genre')
         return queryset
 
 
@@ -70,7 +64,6 @@ class StoreDetailView(FormMixin, generic.DetailView):
     form_class = ReviewForm
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['genres'] = Genre.objects.all()
         context['cart_st_form'] = CartAddProductForm()
         return context
     
@@ -96,16 +89,11 @@ class StoreDetailView(FormMixin, generic.DetailView):
 
 class PublisherDetailView(generic.DetailView):
     model = Publisher
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['genres'] = Genre.objects.all()
-        return context
     
-
 class FilterGameView(GenrePublisherYear, generic.ListView):
     '''Фильтр игр'''
     def get_queryset(self):
-        queryset = St.objects.filter(genre__in=self.request.GET.getlist('genre'))
+        queryset = St.objects.filter(genre__in=self.request.GET.getlist('genre')).select_related('genre')
         return queryset
 
 

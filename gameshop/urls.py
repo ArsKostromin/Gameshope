@@ -15,10 +15,9 @@ urlpatterns = [
 urlpatterns += [
     path('', include('django.contrib.auth.urls')),
 ]
-'''
-urlpatterns += [
-    path('admin/', include(admin.site.urls)),
-    path('cart/', include('cart.urls', namespace='cart')),
-    path('', include('shop.urls', namespace='shop')),
-]
-'''
+
+if settings.DEBUG:
+    urlpatterns = [
+        path("__debug__/", include("debug_toolbar.urls")),
+    ] + urlpatterns
+
