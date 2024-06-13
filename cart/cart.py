@@ -30,6 +30,9 @@ class Cart(object):
         else:
             self.cart[St_id]['quantity'] += quantity
         self.save()
+        #очистка кэша
+        cache.delete('summa')
+        cache.delete('summa1')
 
     def save(self):
         self.session.modified = True
@@ -42,6 +45,8 @@ class Cart(object):
         if St_id in self.cart:
             del self.cart[St_id]
             self.save()
+        cache.delete('summa')
+        cache.delete('summa1')
         
     def __iter__(self):
         """
@@ -63,15 +68,34 @@ class Cart(object):
         """
         Подсчет всех товаров в корзине.
         """
-        return sum(item['quantity'] for item in self.cart.values())
+        
+        summa = cache.get('summa')
+        if not summa:
+            summa = sum(item['quantity'] for item in self.cart.values())
+            cache.set('summa', summa, 60**2)
+
+        
+        return summa
+        # return sum(item['quantity'] for item in self.cart.values())
 
     def get_total_price(self):
         """
         Подсчет стоимости товаров в корзине.
         """
-        return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
+        
+        summa = cache.get('summa1')
+        if not summa:
+            summa = sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
+            cache.set('summa1', summa, 60**2)
+
+        
+        return summa
+        
+        # return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
 
     def clear(self):
         # удаление корзины из сессии
         del self.session[settings.CART_SESSION_ID]
         self.save()
+        cache.delete('summa')
+        cache.delete('summa1')
