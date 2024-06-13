@@ -9,6 +9,7 @@
         <h2>{{ st.title }}</h2>
         <a href="{{st.publisher.get_absolute_url}}"><p>{{st.publisher}}</p></a>
         <p><a href="{% url 'by_genre' st.genre.slug %}">{{ st.genre }}</a></p>
+        <p> {{st.published}} </p>
         <p>{{ st.price }}</p>
         <form action="{% url 'cart:cart_add' st.pk %}" method="post">
             {{ cart_st_form }}

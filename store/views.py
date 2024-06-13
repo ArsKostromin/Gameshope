@@ -26,6 +26,17 @@ from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 
 
+class GenrePublisherYear:
+    def get_publisher(self):
+        return Publisher.objects.all()
+    
+    def get_genre(self):
+        return Genre.objects.all()
+    
+    def get_published(self):
+        return St.objects.values('published')
+    
+
 def by_genre(request, genre_slug):
     current_genre = get_object_or_404(Genre, slug=genre_slug)
     sss = St.objects.filter(genre=current_genre)
@@ -34,7 +45,8 @@ def by_genre(request, genre_slug):
     context = {'sss': sss, 'genres': genres, 'current_genre': current_genre, 'cart_st_form': cart_st_form,}
     return render(request, 'store/by_genre.html', context)
 
-class StoreListView(generic.ListView):
+
+class StoreListView(GenrePublisherYear, generic.ListView):
     model = St
     context_object_name = 'st_list'
     paginate_by = 4
@@ -51,6 +63,7 @@ class StoreListView(generic.ListView):
         else:
             queryset = St.objects.all()
         return queryset
+
 
 class StoreDetailView(FormMixin, generic.DetailView):
     model = St
@@ -87,7 +100,16 @@ class PublisherDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context['genres'] = Genre.objects.all()
         return context
+    
 
+class FilterGameView(GenrePublisherYear, generic.ListView):
+    '''Фильтр игр'''
+    def get_queryset(self):
+        queryset = St.objects.filter(genre__in=self.request.GET.getlist('genre'))
+        return queryset
+
+
+#дальше api
 class GametViewSet(ModelViewSet):
     queryset = St.objects.all()
     permission_classes = [

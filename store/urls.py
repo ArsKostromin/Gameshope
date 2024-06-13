@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.urls import re_path
-from .views import by_genre, StoreListView, StoreDetailView, PublisherDetailView, GametViewSet, GetGenreInfoView, GetPublisherInfoView
+from .views import by_genre, StoreListView, StoreDetailView, PublisherDetailView, GametViewSet, FilterGameView, GetGenreInfoView, GetPublisherInfoView
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
@@ -10,6 +10,7 @@ from rest_framework.routers import DefaultRouter
 urlpatterns = [
     path('genre-<slug:genre_slug>', by_genre, name='by_genre'),
     path('', StoreListView.as_view(), name='index'),
+    path('filter', FilterGameView.as_view(), name='filter'),
     path('publisher-<slug>', PublisherDetailView.as_view(), name='publisher-detail'),
     path('<slug>', StoreDetailView.as_view(), name='st-detail'),
 ]
