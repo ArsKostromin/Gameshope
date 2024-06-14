@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'store/style.css' %}">
 </head>
 <body>
+{% load cache %}
 <header class="hightbar">
     <div class="logo">
       <a href="{% url 'index' %}" class="logo-link">Secret Games Store</a>
@@ -41,7 +42,9 @@
             {% endif %}
             {% endwith %}
       {% endif %}
+      
       {% if request.path == '/store/' %}
+      {% cache 600 bar %}
       <p>Жанры:</p>
       <form action="{% url 'filter' %}" method="get">
       {% for genre in view.get_genre %}
@@ -52,6 +55,7 @@
       {% endfor %}  
       <button type="submit">Найти</button>
       </form>
+      {% endcache %}
       {% elif request.path == '/store/filter' %}
       <p>Жанры:</p>
       <form action="{% url 'filter' %}" method="get">

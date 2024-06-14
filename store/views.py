@@ -89,7 +89,8 @@ class StoreDetailView(FormMixin, generic.DetailView):
 
 class PublisherDetailView(generic.DetailView):
     model = Publisher
-    
+    def get_queryset(self):
+        return Publisher.objects.prefetch_related('st_set__genre')
     
 class FilterGameView(GenrePublisherYear, generic.ListView):
     '''Фильтр игр'''

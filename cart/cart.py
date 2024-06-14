@@ -54,12 +54,13 @@ class Cart(object):
         """
         st_ids = self.cart.keys()
         # получение объектов st и добавление их в корзину
+        st_ids = self.cart.keys()
         games = St.objects.filter(id__in=st_ids)
         cart = self.cart.copy()
         for st in games:
             cart[str(st.id)]['st'] = st
 
-        for item in self.cart.values():
+        for item in cart.values():  # Изменено с self.cart на cart
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['quantity']
             yield item
@@ -68,30 +69,22 @@ class Cart(object):
         """
         Подсчет всех товаров в корзине.
         """
-        
         summa = cache.get('summa')
         if not summa:
             summa = sum(item['quantity'] for item in self.cart.values())
-            cache.set('summa', summa, 60**2)
-
-        
+            cache.set('summa', summa, 60**3)
         return summa
-        # return sum(item['quantity'] for item in self.cart.values())
 
     def get_total_price(self):
         """
         Подсчет стоимости товаров в корзине.
         """
-        
         summa = cache.get('summa1')
         if not summa:
             summa = sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
-            cache.set('summa1', summa, 60**2)
-
-        
+            cache.set('summa1', summa, 60**3)
         return summa
-        
-        # return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
+
 
     def clear(self):
         # удаление корзины из сессии

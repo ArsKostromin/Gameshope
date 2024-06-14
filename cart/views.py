@@ -24,6 +24,11 @@ def cart_remove(request, St_id):
 
 def cart_detail(request):
     cart = Cart(request)
-    for item in cart:
-        item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
-    return render(request, 'cart/detail.html', {'cart': cart})
+    cart_items = list(cart)  # Преобразуем итератор в список, чтобы избежать повторных запросов
+
+    for item in cart_items:
+        item['update_quantity_form'] = CartAddProductForm(initial={
+            'quantity': item['quantity'], 'update': True
+        })
+        
+    return render(request, 'cart/detail.html', {'cart': cart_items})
