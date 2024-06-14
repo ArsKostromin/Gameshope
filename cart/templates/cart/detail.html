@@ -11,8 +11,8 @@
             <div class="info">
                 <div class="info-text"  style="min-width: 680px;">
                     <a href="{{ st.get_absolute_url }}"><h2>{{ st.title }}</h2></a>
-                    <p><a href="{% url 'by_genre' st.genre.pk %}">{{ st.genre.name }}</a></p>
-                    <a href="{% url 'publisher-detail' st.publisher.pk %}">{{ st.publisher.name }}</a>
+                    <p><a href="{% url 'by_genre' st.genre.slug %}">{{ st.genre.name }}</a></p>
+                    <a href="{% url 'publisher-detail' st.publisher.slug %}">{{ st.publisher.name }}</a>
                 </div>
                 <div class="info-text" >
                     {% csrf_token %}

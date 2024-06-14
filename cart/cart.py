@@ -55,7 +55,7 @@ class Cart(object):
         st_ids = self.cart.keys()
         # получение объектов st и добавление их в корзину
         st_ids = self.cart.keys()
-        games = St.objects.filter(id__in=st_ids)
+        games = St.objects.filter(id__in=st_ids).select_related('genre')
         cart = self.cart.copy()
         for st in games:
             cart[str(st.id)]['st'] = st
