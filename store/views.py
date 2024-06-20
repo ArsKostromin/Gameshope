@@ -24,6 +24,8 @@ from django.shortcuts import get_object_or_404
 from store.permissions import IsAdminOrSuperuser
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
+from .task import update_vote_count
+
 
 
 class GenrePublisherYear:
@@ -83,7 +85,7 @@ class StoreDetailView(FormMixin, generic.DetailView):
         self.object.project = self.get_object()
         self.object.owner = self.request.user.profile
         self.object.save()
-        self.object.project.getVoteCount 
+        update_vote_count.delay(self.object.project.id)
         return super().form_valid(form)
 
 

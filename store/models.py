@@ -22,25 +22,15 @@ class St(models.Model):
     total_votes = models.IntegerField(default=0, null=True, blank=True)
     votes_ratio = models.IntegerField(default=0, null=True, blank=True)
 
-    @property
-    def reviewers(self):
-        queryset = self.review_set.all().values_list('owner__id', flat=True)
-        return queryset
-
-    @property
-    def getVoteCount(self):
-        reviews = self.review_set.all()
-        upVotes = reviews.filter(value='up').count()
-        totalVotes = reviews.count()
-        ratio = (upVotes / totalVotes) * 100
-        self.total_votes = totalVotes
-        self.votes_ratio = ratio
-        self.save()
-
     class Meta:
         verbose_name_plural = 'Игры'
         verbose_name = 'Игру'
         ordering = ['-published']
+
+    @property
+    def reviewers(self):
+        queryset = self.review_set.all().values_list('owner__id', flat=True)
+        return queryset
 
     def display_genre(self):
         """Creates a string for the Genre. This is required to display genre in Admin."""
@@ -68,10 +58,6 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.name)
-    #     super(Genre, self).save(*args, **kwargs)
-    
     class Meta:
         verbose_name_plural = 'Жанры'
         verbose_name = 'Жанр'
@@ -90,15 +76,10 @@ class Publisher(models.Model):
     def __str__(self):
         return self.name
 
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.name)
-    #     super(Publisher, self).save(*args, **kwargs)
-
     class Meta:
         verbose_name_plural = 'Издатели'
         verbose_name = 'Издатель'
         ordering = ['name']
-
 
 
 class Review(models.Model):
@@ -122,4 +103,3 @@ class Review(models.Model):
 
     def __str__(self):
         return self.value
-    
