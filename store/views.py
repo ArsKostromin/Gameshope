@@ -1,29 +1,17 @@
-from multiprocessing import context
 from rest_framework.response import Response
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.template import loader
+from django.shortcuts import render, get_object_or_404
 from .models import Publisher, St, Genre
 from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
-from django.urls import reverse_lazy
-from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.edit import CreateView
-from cart.forms import CartAddProductForm
 from django.urls import reverse
 from django.views.generic.edit import FormMixin
 from .forms import ReviewForm
-from .utils import searchSt
-from django.db.models import Q
-from rest_framework.views import APIView
+from cart.forms import CartAddProductForm
 from store.serializers import GamePostSerializer, GameSerializer, GenreSerializer, PublisherSerializer
-from rest_framework import permissions, renderers, viewsets, filters
-from django_filters.rest_framework import DjangoFilterBackend
-from django.shortcuts import get_object_or_404
-from store.permissions import IsAdminOrSuperuser
-from rest_framework import status
+from rest_framework import permissions, filters, status
 from rest_framework.viewsets import ModelViewSet
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.views import APIView
+from store.permissions import IsAdminOrSuperuser
 from .task import update_vote_count
 
 
@@ -93,6 +81,7 @@ class PublisherDetailView(generic.DetailView):
     model = Publisher
     def get_queryset(self):
         return Publisher.objects.prefetch_related('st_set__genre')
+    
     
 class FilterGameView(GenrePublisherYear, generic.ListView):
     '''Фильтр игр'''
