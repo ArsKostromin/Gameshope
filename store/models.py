@@ -1,7 +1,6 @@
 from distutils.command.upload import upload
 from pyexpat import model
 from tabnanny import verbose
-# from turtle import title
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
