@@ -179,14 +179,17 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
+# Настройки Redis
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://redis:6379/1',
+        'LOCATION': 'redis://redis:6379/1',  # Указываем на сервис redis
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
     }
 }
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+# Настройки Celery
+CELERY_BROKER_URL = 'redis://redis:6379/0'  # Указываем на сервис redis
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'

@@ -1,0 +1,24 @@
+services:
+  gameshop:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:6.2
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  celery:
+    build: .
+    command: celery -A gameshop worker --loglevel=info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis

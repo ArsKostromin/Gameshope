@@ -97,7 +97,7 @@ class Review(models.Model):
     class Meta:
         unique_together = [['owner', 'project']]
         verbose_name_plural='Отзывы'
-        verbose_name = 'ОТзыв'
+        verbose_name = 'От зыв'
         ordering = ('created',)
 
     def __str__(self):

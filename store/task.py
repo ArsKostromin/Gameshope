@@ -14,3 +14,6 @@ def update_vote_count(st_id):
         st.save()
     except St.DoesNotExist:
         pass
+
+'''        # Обновляем только необходимые поля
+        St.objects.filter(id=st_id).update(total_votes=totalVotes, votes_ratio=ratio)'''
