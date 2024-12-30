@@ -15,7 +15,7 @@ from store.permissions import IsAdminOrSuperuser
 from .task import update_vote_count
 
 
-
+#для отображения жанров на боковой панели итд
 class GenrePublisherYear:
     def get_publisher(self):
         return Publisher.objects.all()
@@ -40,6 +40,7 @@ class StoreListView(GenrePublisherYear, generic.ListView):
     model = St
     context_object_name = 'st_list'
     paginate_by = 4
+    #фильтрация по названию и жанру игры
     def get_queryset(self):
         query = self.request.GET.get('query')
         if query:
@@ -59,6 +60,10 @@ class StoreDetailView(FormMixin, generic.DetailView):
         return context
     
     def get_success_url(self):
+        # Возвращаем URL для перенаправления после успешного выполнения действия.
+        # Используем reverse для построения URL, подставляя slug текущего объекта
+        # (полученного с помощью self.get_object()), чтобы перенаправить пользователя
+        # на детальную страницу этого объекта ('st-detail').
         return reverse('st-detail', kwargs={'slug': self.get_object().slug})
 
     def post(self, request, *args, **kwargs):
@@ -78,6 +83,9 @@ class StoreDetailView(FormMixin, generic.DetailView):
 
 
 class PublisherDetailView(generic.DetailView):
+        # Используем prefetch_related для оптимизации запросов:
+        # Подгружаем связанные объекты St (st_set) и их жанры (genre) для каждого Publisher
+        # Это позволяет избежать проблемы N+1 запросов, выполняя отдельный запрос для связанных объектов.
     model = Publisher
     def get_queryset(self):
         return Publisher.objects.prefetch_related('st_set__genre')
