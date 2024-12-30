@@ -13,3 +13,8 @@
 <p>Тесты</p>
 <p>Многопоточность</p>
 <p>Оптимизация</p>
+
+<hr>
+<p>docker-compose build</p>
+
+<p>docker-compose up</p>
