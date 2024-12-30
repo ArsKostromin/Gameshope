@@ -18,3 +18,12 @@
 <p>docker-compose build</p>
 
 <p>docker-compose up</p>
+
+<p>http://127.0.0.1:8000/store/ - главная </p>
+<p>http://127.0.0.1:8000/store/genre-action - detail для жанров </p>
+<p>http://127.0.0.1:8000/store/publisher-RockstarGames - для авторов </p>
+<p> http://127.0.0.1:8000/store/red-dead-redemption-2 - detail для игр </p>
+<p> http://127.0.0.1:8000/admin/ - админка </p>
+<p> http://127.0.0.1:8000/account - user account </p>
+<p> http://127.0.0.1:8000/store/api/game/ </p>
+<p> http://127.0.0.1:8000/store/api/genre/ или publisher </p>
