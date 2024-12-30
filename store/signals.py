@@ -5,5 +5,6 @@ from .task import update_vote_count
 
 @receiver(post_save, sender=Review)
 def review_post_save(sender, instance, created, **kwargs):
+    # обновление счётчика выполняется параллельно с сохранением отзыва
     if created:
         update_vote_count.delay(instance.project.id)

@@ -110,30 +110,29 @@ class GametViewSet(ModelViewSet):
             return GamePostSerializer
         return GameSerializer
 
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    filterset_fields = ['title', 'genre__name', 'publisher__name']
-    search_fields = ['title', 'genre__name', 'publisher__name']
-    # permission_classes = [IsAdminOrSuperuser]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter] # указываем что будет использоваться для фильтрации и поиска
+    filterset_fields = ['title', 'genre__name', 'publisher__name'] # поля для фильтрации
+    search_fields = ['title', 'genre__name', 'publisher__name'] # поля для поиска(менее точного)
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
+    # def get_queryset(self): # Ручная реализация DjangoFilterBackend
+    #     queryset = super().get_queryset()
 
-        title = self.request.query_params.get('title', None)
-        genre = self.request.query_params.get('genre', None)
-        publisher = self.request.query_params.get('publisher', None)
+    #     title = self.request.query_params.get('title', None)
+    #     genre = self.request.query_params.get('genre', None)
+    #     publisher = self.request.query_params.get('publisher', None)
 
-        # Применение фильтров, если они заданы
-        if title:
-            queryset = queryset.filter(title=title)
-        if genre:
-            genre_obj = get_object_or_404(Genre, name=genre)
-            queryset = queryset.filter(genre=genre_obj)
+    #     # Применение фильтров, если они заданы
+    #     if title:
+    #         queryset = queryset.filter(title=title)
+    #     if genre:
+    #         genre_obj = get_object_or_404(Genre, name=genre)
+    #         queryset = queryset.filter(genre=genre_obj)
 
-        if publisher:
-            publisher_obj = get_object_or_404(Publisher, name=publisher)
-            queryset = queryset.filter(publisher=publisher_obj)
+    #     if publisher:
+    #         publisher_obj = get_object_or_404(Publisher, name=publisher)
+    #         queryset = queryset.filter(publisher=publisher_obj)
 
-        return queryset
+    #     return queryset
 
 
 class GetGenreInfoView(APIView): 
