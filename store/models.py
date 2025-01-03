@@ -28,8 +28,19 @@ class St(models.Model):
 
     @property
     def reviewers(self):
+        """
+        Возвращает список идентификаторов всех владельцев (owner), которые оставили отзывы (review) для данного объекта.
+
+        - Использует связанную модель `review_set` (задано через связь ForeignKey) для получения всех связанных отзывов.
+        - Применяет `values_list` с аргументами ('owner__id', flat=True), чтобы извлечь только значения поля `id` из связанных объектов владельцев.
+        - Преобразует результат в упрощенный список идентификаторов.
+
+        Returns:
+            QuerySet: Список идентификаторов владельцев отзывов.
+        """
         queryset = self.review_set.all().values_list('owner__id', flat=True)
         return queryset
+
 
     def display_genre(self):
         """Creates a string for the Genre. This is required to display genre in Admin."""
@@ -39,7 +50,7 @@ class St(models.Model):
 
     def get_absolute_url(self):
         """
-        Returns the url to access a particular book instance.
+        Возвращает URL-адрес для доступа к определенному экземпляру книги.
         """
         return reverse('st-detail', args={ self.slug })
 
