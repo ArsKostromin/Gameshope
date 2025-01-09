@@ -26,6 +26,7 @@ class St(models.Model):
         verbose_name = 'Игру'
         ordering = ['-published']
 
+    #@property: Позволяет создавать свойства вместо методов.
     @property
     def reviewers(self):
         """
