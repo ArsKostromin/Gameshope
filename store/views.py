@@ -55,9 +55,15 @@ class StoreDetailView(FormMixin, generic.DetailView):
     form_class = ReviewForm
     
     def get_context_data(self, **kwargs):
+        # Получаем базовый контекст из родительского класса
         context = super().get_context_data(**kwargs)
+        
+        # Добавляем в контекст форму для добавления товара в корзину
         context['cart_st_form'] = CartAddProductForm()
+        
+        # Возвращаем обновленный контекст
         return context
+
     
     def get_success_url(self):
         # Возвращаем URL для перенаправления после успешного выполнения действия.
