@@ -30,9 +30,9 @@ class GenrePublisherYear:
 def by_genre(request, genre_slug):
     current_genre = get_object_or_404(Genre, slug=genre_slug)
     sss = St.objects.filter(genre=current_genre).select_related('genre')
-    genres = Genre.objects.all()
+    # genres = Genre.objects.all()
     cart_st_form = CartAddProductForm()
-    context = {'sss': sss, 'genres': genres, 'current_genre': current_genre, 'cart_st_form': cart_st_form,}
+    context = {'sss': sss, 'current_genre': current_genre, 'cart_st_form': cart_st_form,}
     return render(request, 'store/by_genre.html', context)
 
 
