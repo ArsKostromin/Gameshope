@@ -44,7 +44,7 @@ class St(models.Model):
 
 
     def display_genre(self):
-        """Creates a string for the Genre. This is required to display genre in Admin."""
+        """Создает строку для жанра. Это необходимо для отображения жанра в Admin."""
         return ', '.join([genre.name for genre in self.genre.all()[:3]])
 
     display_genre.short_description = 'Genre'
@@ -57,7 +57,7 @@ class St(models.Model):
 
     def __str__(self):
         """
-        String for representing the Model object.
+        Строка для представления модельного объекта.
         """
         return self.title
     
@@ -80,7 +80,7 @@ class Publisher(models.Model):
 
     def get_absolute_url(self):
         """
-        Returns the url to access a particular author instance.
+        Возвращает URL-адрес для доступа к конкретному экземпляру author.
         """
         return reverse('publisher-detail', args=[str(self.slug)])      
 

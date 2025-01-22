@@ -70,7 +70,7 @@ def registerUser(request):
             user.username = user.username.lower()
 
             user.save()
-            profile = Profile.objects.create(user=user, name = user.username, email = user.email)
+            profile = Profile.objects.create(user=user, name = user.name, username = user.username, email = user.email)
             user.profile = profile
 
             messages.success(request, 'Аккаунт успешно создан!')
