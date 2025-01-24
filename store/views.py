@@ -100,7 +100,12 @@ class PublisherDetailView(generic.DetailView):
 class FilterGameView(GenrePublisherYear, generic.ListView):
     '''Фильтр игр'''
     def get_queryset(self):
-        queryset = St.objects.filter(genre__in=self.request.GET.getlist('genre')).select_related('genre')
+        genres = self.request.GET.getlist('genre')  # Получаем список жанров из GET-запроса
+
+        if genres:  
+            queryset = St.objects.filter(genre__in=genres).select_related('genre')
+        else: 
+            queryset = St.objects.all().select_related('genre')
         return queryset
 
 
