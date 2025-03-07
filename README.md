@@ -27,3 +27,5 @@
 <p> http://127.0.0.1:8000/account - user account </p>
 <p> http://127.0.0.1:8000/store/api/game/ </p>
 <p> http://127.0.0.1:8000/store/api/genre/ или publisher </p>
+<p>http://127.0.0.1:8000/swagger/</p>
+<p>http://127.0.0.1:8000/redoc/</p>

@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'rest_framework.authtoken',
-    "debug_toolbar"
+    "debug_toolbar",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -193,3 +194,8 @@ CACHES = {
 # Настройки Celery
 CELERY_BROKER_URL = 'redis://redis:6379/0'  # Указываем на сервис redis
 CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': None,  # Отключает аутентификацию через UI
+    'LOGOUT_URL': None, # Аналогично для выхода
+}
